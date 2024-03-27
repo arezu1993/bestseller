@@ -1,14 +1,14 @@
-/*
+
 resource "aws_key_pair" "keypair" {
   key_name   = "${var.project}-key" 
   public_key = file("${path.module}/id_rsa.pub")  
 }
-*/
+
 resource "aws_launch_template" "bestseller" {
   name          = "${var.project}-lt"
   image_id      = var.ami_id
   instance_type = var.instance_type 
-  key_name  = "test" 
+  key_name  = "${var.project}-key" 
   user_data = filebase64("${path.module}/script.sh")
   vpc_security_group_ids = [var.sg_id]
 }
